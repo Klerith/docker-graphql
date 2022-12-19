@@ -31,7 +31,7 @@ jobs:
         
     - name: Push Docker Image
       run: |
-        docker push klerith/docker-graphql:0.0.2 .
+        docker push klerith/docker-graphql:0.0.2
       
     
     
