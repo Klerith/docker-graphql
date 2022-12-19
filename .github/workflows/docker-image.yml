@@ -28,10 +28,12 @@ jobs:
     - name: Build Docker Image
       run: |
         docker build -t klerith/docker-graphql:0.0.2 .
+        docker build -t klerith/docker-graphql:latest .
         
     - name: Push Docker Image
       run: |
         docker push klerith/docker-graphql:0.0.2
+        docker push klerith/docker-graphql:latest
       
     
     
