@@ -25,28 +25,33 @@ jobs:
         minor_pattern: "feat:"
         format: "${major}.${minor}.${patch}-prerelease${increment}"
       id: version
+
+
+
     
     - name: Docker Login
       env:
         DOCKER_USER: ${{ secrets.DOCKER_USER }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        NEW_VERSION: ${{ steps.version.outputs.version }}
         
       run: |
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+        echo "New version: $NEW_VERSION !!!!"
         
-    - name: Build Docker Image
-      env:
-        NEW_VERSION: ${{ steps.version.outputs.version }}
-      run: |
-        docker build -t klerith/docker-graphql:$NEW_VERSION .
-        docker build -t klerith/docker-graphql:latest .
+#    - name: Build Docker Image
+#      env:
+#        NEW_VERSION: ${{ steps.version.outputs.version }}
+#      run: |
+#       docker build -t klerith/docker-graphql:$NEW_VERSION .
+#        docker build -t klerith/docker-graphql:latest .
         
-    - name: Push Docker Image
-      env:
-        NEW_VERSION: ${{ steps.version.outputs.version }}
-      run: |
-        docker push klerith/docker-graphql:$NEW_VERSION
-        docker push klerith/docker-graphql:latest
+#    - name: Push Docker Image
+#      env:
+#        NEW_VERSION: ${{ steps.version.outputs.version }}
+#      run: |
+#        docker push klerith/docker-graphql:$NEW_VERSION
+#        docker push klerith/docker-graphql:latest
       
     
     
